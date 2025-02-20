@@ -1,5 +1,16 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
+import '../global.css';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native';
+import {
+  useFonts,
+  Barlow_300Light,
+  Barlow_400Regular,
+  Barlow_500Medium,
+  Barlow_700Bold,
+} from '@expo-google-fonts/barlow';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -14,7 +25,10 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    Barlow_300Light: Barlow_300Light,
+    Barlow_400Regular: Barlow_400Regular,
+    Barlow_500Medium: Barlow_500Medium,
+    Barlow_700Bold: Barlow_700Bold,
   });
 
   useEffect(() => {
@@ -28,12 +42,12 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        <Stack.Screen name='index' options={{ headerShown: false }} />
+        <Stack.Screen name='+not-found' />
       </Stack>
-      <StatusBar style="auto" />
+      <StatusBar style='auto' />
     </ThemeProvider>
   );
 }
