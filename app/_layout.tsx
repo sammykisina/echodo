@@ -10,12 +10,14 @@ import {
   Barlow_400Regular,
   Barlow_500Medium,
   Barlow_700Bold,
+  Barlow_900Black,
 } from '@expo-google-fonts/barlow';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import '@/utils/cssInterop';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -29,6 +31,7 @@ export default function RootLayout() {
     Barlow_400Regular: Barlow_400Regular,
     Barlow_500Medium: Barlow_500Medium,
     Barlow_700Bold: Barlow_700Bold,
+    Barlow_900Black: Barlow_900Black,
   });
 
   useEffect(() => {
