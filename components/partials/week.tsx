@@ -12,7 +12,10 @@ export default function Week() {
   const { height } = useAnimatedKeyboard();
 
   return (
-    <KeyboardAwareScrollView bottomOffset={62}>
+    <KeyboardAwareScrollView
+      bottomOffset={62}
+      keyboardShouldPersistTaps='handled'
+    >
       <View>
         {weekDays?.map((day) => (
           <Day day={day} key={`day-${day}`} />
