@@ -12,6 +12,7 @@ import Animated, {
   FadeInDown,
   FadeInRight,
   FadeOutDown,
+  LinearTransition,
 } from 'react-native-reanimated';
 
 export default function Todos({ day }: { day: string }) {
@@ -40,7 +41,7 @@ export default function Todos({ day }: { day: string }) {
         className='gap-2 mb-4 mt-2'
         exitDirection={1}
         // enterDirection={-1}
-        entering={() => FadeInRight}
+        // entering={() => FadeInRight}
       >
         {databaseTodo?.map((todo, index) => (
           <Todo key={index.toString()} todo={todo} />
@@ -50,6 +51,7 @@ export default function Todos({ day }: { day: string }) {
       <Animated.View
         entering={FadeInDown.duration(400)}
         exiting={FadeOutDown.duration(400)}
+        layout={LinearTransition.springify().damping(80).stiffness(200)}
       >
         <TextInput
           className='border border-black/30 rounded-md p-2'
@@ -63,7 +65,7 @@ export default function Todos({ day }: { day: string }) {
               db.insert(todos)
                 .values({
                   date: dayjs(day).toDate(),
-                  content: `Todo ${localTodos.length + 1}`,
+                  content: `Todo ${databaseTodo?.length + 1}`,
                 })
                 .run();
             }}
