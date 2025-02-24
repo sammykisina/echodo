@@ -15,6 +15,7 @@ export default function Week() {
     <KeyboardAwareScrollView
       bottomOffset={62}
       keyboardShouldPersistTaps='handled'
+      // disableScrollOnKeyboardHide={true}
     >
       <View>
         {weekDays?.map((day) => (
