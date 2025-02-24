@@ -10,7 +10,6 @@ import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
 import { between, eq } from 'drizzle-orm';
 import Animated, {
   FadeInDown,
-  FadeInRight,
   FadeOutDown,
   LinearTransition,
 } from 'react-native-reanimated';
@@ -19,8 +18,6 @@ export default function Todos({ day }: { day: string }) {
   /**
    * === STATES ===
    */
-  const [localTodos, setLocalTodos] = React.useState<TodoType[]>(_todos);
-
   const { data: databaseTodo } = useLiveQuery(
     db
       .select()
@@ -37,12 +34,7 @@ export default function Todos({ day }: { day: string }) {
 
   return (
     <View>
-      <Stagger
-        className='gap-2 mb-4 mt-2'
-        exitDirection={1}
-        // enterDirection={-1}
-        // entering={() => FadeInRight}
-      >
+      <Stagger className='gap-2 mb-4 mt-2' exitDirection={1}>
         {databaseTodo?.map((todo, index) => (
           <Todo key={index.toString()} todo={todo} />
         ))}
@@ -54,7 +46,7 @@ export default function Todos({ day }: { day: string }) {
         layout={LinearTransition.duration(400)}
       >
         <TextInput
-          className='border border-black/30 rounded-md p-2'
+          className='border-b border-black/30 rounded-md p-2'
           placeholder='Add todo'
         />
 
