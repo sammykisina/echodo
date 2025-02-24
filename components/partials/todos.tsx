@@ -1,7 +1,13 @@
 import React, { useRef } from 'react';
 import Todo from './todo';
 import { Stagger } from '@animatereactnative/stagger';
-import { View, TouchableOpacity, Text, TextInput } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  TextInput,
+  Pressable,
+} from 'react-native';
 import { _todos, Todo as TodoType } from '@/utils/mock';
 import { db } from '@/db/init';
 import { todos } from '@/db/schema';
@@ -13,6 +19,9 @@ import Animated, {
   FadeOutDown,
   LinearTransition,
 } from 'react-native-reanimated';
+import { Plus } from 'lucide-react-native';
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export default function Todos({ day }: { day: string }) {
   /**
@@ -61,7 +70,7 @@ export default function Todos({ day }: { day: string }) {
   const isDisabled = !content || content === '';
 
   return (
-    <View>
+    <Animated.View className='gap-2 flex flex-col'>
       <Stagger className='gap-2 mb-4 mt-2' exitDirection={1}>
         {databaseTodo?.map((todo, index) => (
           <Todo key={index.toString()} todo={todo} />
@@ -72,33 +81,29 @@ export default function Todos({ day }: { day: string }) {
         entering={FadeInDown.duration(400).delay(100)}
         exiting={FadeOutDown.duration(400).delay(100)}
         layout={LinearTransition.duration(400)}
+        className='flex flex-row gap-2 mb-4 items-end'
       >
         <TextInput
           ref={inputRef}
-          className='border-b border-black/30 rounded-md p-2'
+          className='border-b border-black/50 rounded-md p-2 flex-1 font-barlow-500'
           placeholder='Add todo'
           defaultValue={content}
+          multiline
           onChangeText={(text) => setContent(text.trim())}
-          onSubmitEditing={() => {
-            if (!isDisabled) {
-              addTodo();
-            }
-          }}
-          submitBehavior='blurAndSubmit'
         />
 
-        <View className='flex justify-center items-center'>
-          <TouchableOpacity
-            disabled={isDisabled}
-            className=' w-fit'
-            onPress={addTodo}
-          >
-            <Text className='text-blue-500 font-barlow-900 text-lg w-fit'>
-              ADD TODO
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <AnimatedPressable
+          disabled={isDisabled}
+          onPress={addTodo}
+          layout={LinearTransition}
+          style={{ opacity: isDisabled ? 0.5 : 1 }}
+        >
+          <View className='bg-black/50  rounded-lg flex flex-row gap-1  justify-center items-center px-2 py-1'>
+            <Plus size={14} className='stroke-white ' />
+            <Text className='font-barlow-500 color-white  uppercase '>Add</Text>
+          </View>
+        </AnimatedPressable>
       </Animated.View>
-    </View>
+    </Animated.View>
   );
 }
