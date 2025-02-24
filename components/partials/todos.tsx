@@ -86,7 +86,7 @@ export default function Todos({ day }: { day: string }) {
         <TextInput
           ref={inputRef}
           className='border-b border-black/50 rounded-md p-2 flex-1 font-barlow-500'
-          placeholder='Add todo'
+          placeholder='What need to be done?'
           defaultValue={content}
           multiline
           onChangeText={(text) => setContent(text.trim())}
