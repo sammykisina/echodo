@@ -1,14 +1,7 @@
 import React, { useRef } from 'react';
 import Todo from './todo';
 import { Stagger } from '@animatereactnative/stagger';
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  TextInput,
-  Pressable,
-} from 'react-native';
-import { _todos, Todo as TodoType } from '@/utils/mock';
+import { View, Text, TextInput, Pressable } from 'react-native';
 import { db } from '@/db/init';
 import { todos } from '@/db/schema';
 import dayjs from 'dayjs';
