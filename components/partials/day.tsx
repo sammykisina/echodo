@@ -29,7 +29,7 @@ export default function Day({ day }: { day: string }) {
         </View>
       </Accordion.Header>
 
-      <Accordion.Expanded className='h-max'>
+      <Accordion.Expanded className='pl-12'>
         <Todos day={day} />
       </Accordion.Expanded>
     </Accordion.Accordion>
