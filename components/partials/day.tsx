@@ -14,20 +14,22 @@ export default function Day({ day }: { day: string }) {
     <Accordion.Accordion
       isOpen={dayjs(day).isSame(dayjs(), 'day')}
       style={{
-        minHeight: (height - top - bottom) / weekDays.length,
+        minHeight: (height - top - bottom) / 7,
       }}
-      className='h-1/5 pt-4 pr-4 pl-12 border-t-2 border-black/10 gap-2'
+      className='gap-2 pt-4 pr-4 border-t-2 border-black/5 '
     >
       <Accordion.Header>
-        <Text className='text-4xl uppercase font-barlow-900'>
-          {dayjs(day).format(weekDayFormatter)}
-        </Text>
-        <Text className='font-barlow-400 text-gray-600'>
-          {dayjs(day).format(localFormatter)} - 14°C
-        </Text>
+        <View className='pl-12'>
+          <Text className='text-4xl uppercase font-barlow-900'>
+            {dayjs(day).format(weekDayFormatter)}
+          </Text>
+          <Text className='font-barlow-400 text-gray-600'>
+            {dayjs(day).format(localFormatter)} - 14°C
+          </Text>
+        </View>
       </Accordion.Header>
 
-      <Accordion.Expanded>
+      <Accordion.Expanded className='h-max'>
         <Todos day={day} />
       </Accordion.Expanded>
     </Accordion.Accordion>
