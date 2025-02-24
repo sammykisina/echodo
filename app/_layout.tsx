@@ -21,6 +21,7 @@ import '@/utils/cssInterop';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useLocalMigrations } from '@/hooks/use-local-migrations';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -49,11 +50,13 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name='index' options={{ headerShown: false }} />
-        <Stack.Screen name='+not-found' />
-      </Stack>
-      <StatusBar style='auto' />
+      <KeyboardProvider>
+        <Stack>
+          <Stack.Screen name='index' options={{ headerShown: false }} />
+          <Stack.Screen name='+not-found' />
+        </Stack>
+        <StatusBar style='auto' />
+      </KeyboardProvider>
     </ThemeProvider>
   );
 }
