@@ -49,9 +49,9 @@ export default function Todos({ day }: { day: string }) {
       </Stagger>
 
       <Animated.View
-        entering={FadeInDown.duration(400)}
-        exiting={FadeOutDown.duration(400)}
-        layout={LinearTransition.springify().damping(80).stiffness(200)}
+        entering={FadeInDown.duration(400).delay(100)}
+        exiting={FadeOutDown.duration(400).delay(100)}
+        layout={LinearTransition.duration(400)}
       >
         <TextInput
           className='border border-black/30 rounded-md p-2'
