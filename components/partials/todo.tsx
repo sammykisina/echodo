@@ -20,7 +20,7 @@ export default function Todo({ todo }: { todo: typeof todos.$inferSelect }) {
       </View>
 
       <Text
-        className={`font-barlow-400 ${
+        className={`font-barlow-400 capitalize ${
           Boolean(todo?.done) ? 'line-through decoration-selected ' : ''
         }`}
       >
