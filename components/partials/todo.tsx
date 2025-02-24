@@ -6,7 +6,7 @@ import { todos } from '@/db/schema';
 
 export default function Todo({ todo }: { todo: typeof todos.$inferSelect }) {
   return (
-    <View className='flex-row gap-2 items-center pl-12'>
+    <View className='flex-row gap-2 items-center'>
       <View
         className={`w-4 h-4 rounded-sm border items-center justify-center  ${
           Boolean(todo?.done)
