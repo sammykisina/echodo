@@ -1,13 +1,18 @@
 import React from 'react';
 import Todo from './todo';
 import { Stagger } from '@animatereactnative/stagger';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, TextInput } from 'react-native';
 import { _todos, Todo as TodoType } from '@/utils/mock';
 import { db } from '@/db/init';
 import { todos } from '@/db/schema';
 import dayjs from 'dayjs';
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
 import { between, eq } from 'drizzle-orm';
+import Animated, {
+  FadeInDown,
+  FadeInRight,
+  FadeOutDown,
+} from 'react-native-reanimated';
 
 export default function Todos({ day }: { day: string }) {
   /**
@@ -32,37 +37,43 @@ export default function Todos({ day }: { day: string }) {
   return (
     <View>
       <Stagger
-        className='gap-4 mb-4 mt-2'
+        className='gap-2 mb-4 mt-2'
         exitDirection={1}
-        enterDirection={-1}
+        // enterDirection={-1}
+        entering={() => FadeInRight}
       >
         {databaseTodo?.map((todo, index) => (
           <Todo key={index.toString()} todo={todo} />
         ))}
       </Stagger>
 
-      <View className='flex justify-center items-center'>
-        <TouchableOpacity
-          className=' w-fit'
-          onPress={() => {
-            db.insert(todos)
-              .values({
-                date: dayjs(day).toDate(),
-                content: `Todo ${localTodos.length + 1}`,
-              })
-              .run();
+      <Animated.View
+        entering={FadeInDown.duration(400)}
+        exiting={FadeOutDown.duration(400)}
+      >
+        <TextInput
+          className='border border-black/30 rounded-md p-2'
+          placeholder='Add todo'
+        />
 
-            // setLocalTodos([
-            //   ...localTodos,
-            //   { id: localTodos.length + 1, content: 'New todo', done: false },
-            // ]);
-          }}
-        >
-          <Text className='text-blue-500 font-barlow-900 text-lg w-fit'>
-            ADD TODO
-          </Text>
-        </TouchableOpacity>
-      </View>
+        <View className='flex justify-center items-center'>
+          <TouchableOpacity
+            className=' w-fit'
+            onPress={() => {
+              db.insert(todos)
+                .values({
+                  date: dayjs(day).toDate(),
+                  content: `Todo ${localTodos.length + 1}`,
+                })
+                .run();
+            }}
+          >
+            <Text className='text-blue-500 font-barlow-900 text-lg w-fit'>
+              ADD TODO
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </Animated.View>
     </View>
   );
 }
