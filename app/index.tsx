@@ -1,5 +1,4 @@
 import React from 'react';
-import { Image, ImageBackground, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import NoiseBackground from '@/components/partials/noise-background';
 import Week from '@/components/partials/week';
